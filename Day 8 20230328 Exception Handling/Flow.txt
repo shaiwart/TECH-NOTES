@@ -1,39 +1,39 @@
-Exception Handling
-	What is an Exception
-	Why Exception summary
+01. Exception Handling
+	02. What is an Exception
+	03. Why Exception summary
 
-Exception can be handle or raised
-	how to handle - try....catch
-	exception can be raised by -  throw
+05. Exception can be handle or raised
+	06. how to handle - try....catch
+	07. exception can be raised by -  throw
 
-Exception_Hierarchy
+09. Exception_Hierarchy
 
-Difference between Error and Exception
+11. Difference between Error and Exception
 
-Example1.java to Example7.java
-	Example 5 : rule - most specific catch block should precede most generic catch block.
-	Example 7 : finally{} block always executes whether or not exception is raised.
+13. Example1.java to Example7.java
+	14. Example 5 : rule - most specific catch block should precede most generic catch block.
+	15. Example 7 : finally{} block always executes whether or not exception is raised.
 
-finally block info
-More_About_finally
+17. finally block info
+18. More_About_finally
 
-checked vs unchecked exceptions
+20. checked vs unchecked exceptions
 
-User_defined_exceptions
+22. User_defined_exceptions
 
-what is handle or declare
+24. what is handle or declare
 
-Handle_vs_Declare_Checked_Unchecked
+26. Handle_vs_Declare_Checked_Unchecked
 
-ARM_block_info
+28. ARM_block_info
 
-NoClassDefFoundError  vs  ClassNotFoundException
+30. NoClassDefFoundError  vs  ClassNotFoundException
 
-can we write "catch(Object)"
+32. can we write "catch(Object)"
 
-Assertions_info
+34. Assertions_info
 
-Overriding and Exception rule
-Overriding rules implementation
+36. Overriding and Exception rule
+37. Overriding rules implementation
 
-exception, package assignment
+39. exception, package assignment

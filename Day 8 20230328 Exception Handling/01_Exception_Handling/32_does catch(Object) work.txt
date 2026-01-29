@@ -3,7 +3,6 @@ will following code work?
 
 	try
 	{
-
 		some code
 	}
 	catch(Object e)
