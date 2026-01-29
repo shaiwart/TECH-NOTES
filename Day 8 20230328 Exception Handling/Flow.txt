@@ -34,6 +34,6 @@
 34. Assertions_info
 
 36. Overriding and Exception rule
-37. Overriding rules implementation
+37. All overriding rules
 
 39. exception, package assignment
