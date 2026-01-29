@@ -1,5 +1,14 @@
+Fundamental Principle: The Liskov Substitution Principle & Contract Enforcement
+-------------------------------------------------------------------------------
+When a subclass overrides a method, it must respect the contract established by the superclass.
+Client code writing against the superclass reference (e.g., `Base ref = new Sub()`) expects to handle only the checked exceptions declared in the superclass method.
+
+If a subclass were allowed to throw a new or broader checked exception, the client code would not be prepared to catch it, leading to a breakdown in exception handling safety. However, throwing fewer exceptions or stronger specific exceptions (subclasses) is safe because the catch blocks for the superclass exception will still work.
+
+
 Rule 1: Overriding method may choose not to declare any checked exception
 ------------------------------------------------------------------------
+REASON: It is safe for the subclass to be "less dangerous" than the superclass. If the caller is prepared to handle an exception, they are perfectly fine if no exception isn't thrown at all.
 
 class Base {
 	public void disp() throws IOException {
@@ -22,9 +31,23 @@ class Main1 {
 	}
 }
 
+NOTE : Below fundamental rule is still valid here.
+	class Sub extends Base {
+		public void disp() {
+			FileInputStream fis = new FileInputStream("a.txt"); // ❌
+		}
+	}
+	Unhandled exception: java.io.IOException
+	Because:
+		- IOException is checked
+		- Must be either caught or declared
+		- disp() does not declare it
+
+
 
 Rule 2: Overriding method can declare the same checked exception
 ----------------------------------------------------------------
+REASON: This maintains the exact same contract as the superclass. The caller is already required to handle this exception.
 
 class Base {
 	public void disp() throws IOException {
@@ -50,7 +73,8 @@ class Main2 {
 
 Rule 3: Overriding method can declare the same checked exception or its sub-type
 --------------------------------------------------------------------------------
-(The sub-type must be a subclass of the exception declared by the overridden method)
+REASON: Polymorphism allows catching a subclass exception using a superclass catch block.
+If the superclass throws `IOException`, the caller enters a `catch(IOException e)` block. If the subclass throws `EOFException` (which extends `IOException`), that catch block will still successfully catch it.
 
 class Base {
 	public void disp() throws IOException {
@@ -76,6 +100,7 @@ class Main3 {
 
 Rule 4: Overriding method cannot declare a checked exception not declared by the overridden method
 -------------------------------------------------------------------------------------------------
+REASON: If the subclass throws a new checked exception that the superclass didn't declare, the caller (who only knows about the superclass) will not have a try-catch block for it. The compiler prevents this to ensure type safety.
 (The overriding method cannot throw a new or broader checked exception)
 
 // Example A: Broader exception
@@ -85,7 +110,7 @@ class Base {
 }
 
 class Sub extends Base {
-	public void disp() throws Exception { // Compilation Error
+	public void disp() throws Exception { // Compilation Error: Exception is broader than IOException
 	}
 }
 
@@ -103,7 +128,7 @@ class Base {
 }
 
 class Sub extends Base {
-	public void disp() throws Exception { // Compilation Error
+	public void disp() throws Exception { // Compilation Error: Base throws nothing, so Sub cannot throw checked exceptions
 	}
 }
 
