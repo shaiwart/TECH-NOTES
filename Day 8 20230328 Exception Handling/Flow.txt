@@ -1,33 +1,29 @@
 Exception Handling
 	What is an Exception
-		Why Exception summary
+	Why Exception summary
 
 Exception can be handle or raised
-		how to handle - try....catch
-
-exception can be raised by -  throw
+	how to handle - try....catch
+	exception can be raised by -  throw
 
 Exception_Hierarchy
 
-
 Difference between Error and Exception
 
-
-	Example1.java to Example7.java
+Example1.java to Example7.java
 
 finally block info
+More_About_finally
 
-	More_About_finally
+checked vs unchecked exceptions
 
-	checked vs unchecked exceptions
+User_defined_exceptions
 
-	User_defined_exceptions
+what is handle or declare
 
-	what is handle or declare
-	
-	Handle_vs_Declare_Checked_Unchecked
+Handle_vs_Declare_Checked_Unchecked
 
-	ARM_block_info
+ARM_block_info
 
 NoClassDefFoundError  vs  ClassNotFoundException
 
@@ -35,11 +31,7 @@ can we write "catch(Object)"
 
 Assertions_info
 
-
 Overriding and Exception rule
-	
-	Overriding rules implementation
+Overriding rules implementation
 
-
-exception,package assignment
-
+exception, package assignment
