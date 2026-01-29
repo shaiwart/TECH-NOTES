@@ -4,20 +4,20 @@
 
 05. Exception can be handle or raised
 	06. how to handle - try....catch
-	07. exception can be raised by -  throw
+	07. exception can be raised by -  throw ⭐️
 
-09. Exception_Hierarchy
+09. Exception_Hierarchy ⭐️
 
 11. Difference between Error and Exception
 
-13. Example1.java to Example7.java
+13. Example1.java to Example7.java ⭐️
 	14. Example 5 : rule - most specific catch block should precede most generic catch block.
 	15. Example 7 : finally{} block always executes whether or not exception is raised.
 
-17. finally block info
-18. More_About_finally
+17. finally block info ⭐️
+18. More_About_finally ⭐️
 
-20. checked vs unchecked exceptions
+20. checked vs unchecked exceptions ⭐️
 
 22. User_defined_exceptions
 
@@ -33,7 +33,7 @@
 
 34. Assertions_info
 
-36. Overriding and Exception rule
-37. All overriding rules
+36. Overriding and Exception rule ⭐️
+37. All overriding rules ⭐️
 
 39. exception, package assignment
