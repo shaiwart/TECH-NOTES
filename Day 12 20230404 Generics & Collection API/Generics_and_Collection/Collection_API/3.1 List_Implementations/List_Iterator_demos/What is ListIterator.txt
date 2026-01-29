@@ -1,0 +1,8 @@
+Iterator is an interface for traversal through List,Set and Map.
+
+
+ListIterator is a child of Iterator , which has two features
+
+	1) it allows modification 
+	2) it allows bidirectional traversal
+
