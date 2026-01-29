@@ -5,3 +5,10 @@
 	a) overriding method may not declare any checked exception.
 	b) overriding method can declare same checked exception or its sub-type declared by overriden method.
 	c) overriding method can not declare checked exception not declared by overriden method.
+	
+	- unchecked exceptions
+	*) overriding method can declare unchecked exception.
+	*) overriding method can declare unchecked exception not declared by overriden method.
+
+// Main fundamental behind this rule is : polymorphism should be possible. and it should not be restricted. 
+// And it should be possible to handle exception at runtime.
