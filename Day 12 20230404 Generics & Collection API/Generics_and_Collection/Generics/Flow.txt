@@ -1,0 +1,19 @@
+1. Why Generics?
+   - 1.1 ArrayStoreExcepDemo.java
+   - 1.2 Background for Generics.txt
+   - 1.3 How Generics Provide Type Safety.txt
+
+2. Introduction & Syntax
+   - 2.1 Generic Info.txt
+   - 2.2 Generic1.java
+   - 2.3 Generic2.java
+
+3. Advanced Usage
+   - 3.1 Generic3.java
+   - 3.2 Generic3a.java
+   - 3.3 Generic4.java
+   - 3.4 Generic_Info_Examples/
+   - 3.5 different_arg_return_as_generics/
+
+4. Under the Hood
+   - 4.1 Type Erasure.txt
