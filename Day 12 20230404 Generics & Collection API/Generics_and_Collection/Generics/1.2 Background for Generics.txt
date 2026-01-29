@@ -1,73 +1,78 @@
+I. The Era Before Java 5 (The Problem)
+================================================================================
 
-Before Java5
+Before Generics (Java 5), classes designed to hold any type of object had to use `Object` checks and explicit casting. This lacked type safety.
 
-public class StorageClass
-{
+Class Definition:
+-----------------
+public class StorageClass {
 	private Object ref;
-	public void store(Object ref)
-	{
-		this.ref=ref;
+
+	public void store(Object ref) {
+		this.ref = ref;
 	}
-	public Object get()
-	{
+
+	public Object get() {
 		return ref;
 	}
 }
 
-How will you use above class?
-
-
-StorageClass s=new StorageClass();
-
+Usage:
+------
+StorageClass s = new StorageClass();
 s.store(new Integer(100));
 
-Integer ref1=(Integer)s.get();	
+// We must manually cast the return type
+Integer ref1 = (Integer) s.get();
 System.out.println(ref1);
 
 
-what is the risk involved in the above code?
-	what if we don't remember what type of data we have passed to the "store()" method?
+The Risk: ClassCastException
+--------------------------------------------------------------------------------
+What if we forget what type of data we stored?
 
-suppose we have passed "String" 
-	i.e.
-		s.store("hello");
-and while invoking "get()" if we don't remember what we had passed in the "store()" method, we might say:
+// 1. We store a String
+s.store("hello");
 
-	Integer ref1=(Integer)s.get();
+// 2. Later, we mistakenly think it's an Integer and try to cast it
+Integer ref1 = (Integer) s.get();
 
-now here compiler will not give any error as this statement is syntactically correct. But during runtime "String" will be returned which we are trying to cast with "Integer" and this will result into "ClassCastException".
+Result:
+- The compiler DOES NOT catch this error. strict syntax is correct (casting Object to Integer).
+- At Runtime, the program crashes with `ClassCastException` because "hello" (String) cannot be cast to Integer.
+- This makes the code unsafe and error-prone.
 
-So this is the risk with the code prior to java5.
 
-JAVA5 introduced the concept of "Generics" according to which you can 
+II. Java 5 and Later (The Solution: Generics)
+================================================================================
 
-define "StorageClass" as follows:
+Java 5 introduced **Generics**, which allows classes to be parameterized by type. This shifts type checking from Runtime to Compile-time. ⭐️⭐️⭐️
 
-public class StorageClass<T>
-{
+Generic Class Definition:
+-------------------------
+// 'T' is a placeholder for the Type
+public class StorageClass<T> {
 	private T ref;
-	public void store(T ref)
-	{
-		this.ref=ref;
+
+	public void store(T ref) {
+		this.ref = ref;
 	}
-	public T get()
-	{
+
+	public T get() {
 		return ref;
 	}
 }
 
-and instantiate it as follows:
+Usage (Type Safety):
+--------------------
+// We strictly define that 's' can ONLY hold Integers
+StorageClass<Integer> s = new StorageClass<Integer>();
 
-StorageClass<Integer> s=new StorageClass<Integer>();
+1. Type Safety (Compile-time check):
+   s.store(100);       // ✅ Allowed
+   // s.store("hello"); // ❌ Compilation Error! The compiler prevents this mistake immediately.
 
-	when you create object this way, for the compiler reference "s" is only for the type "Integer". If you try to pass type other than Integer, compiler will give error which makes program safer. e.g.
-
-	s.store(100); 		will work
-	s.store("hello");  	compilation error
-
-	while invoking "get()"
-	Integer ref1=s.get(); 	no need to do typecasting
-	String ref2=s.get();   	compilation error
-
-
-
+2. No Explicit Casting:
+   // The compiler knows 'get()' returns an Integer because T was replaced by Integer.
+   Integer ref1 = s.get();  // ✅ No typecasting needed
+   // String ref2 = s.get(); // ❌ Compilation Error!
