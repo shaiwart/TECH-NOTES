@@ -1,38 +1,67 @@
-List
-	index based, duplicates allowed
+COLLECTION API: CLASSES AND INTERFACES
+================================================================================
 
+1. CORE INTERFACES
+================================================================================
+
+List
+----------------------------------------
+- Behavior: Index-based, ordered collection.
+- Properties: Duplicates allowed.
 
 Set
-	unique, sometimes sorted
+----------------------------------------
+- Behavior: Collection of unique elements.
+- Properties: No duplicates allowed. May be sorted (e.g., TreeSet) or unordered (e.g., HashSet).
 
 Map
-	key - value pair
-	put using key and value
-	get using only key
-
-	key must be unique and sometimes sorted.
-
-
-ArrayList 
-	good for traversal,random access
-Vector
-	slow, thread-safe, legacy class
-LinkedList
-	doubly linked list, good for insertion and deletion from middle.
-
-HashSet
-	fast, order not guaranteed, unique only
-TreeSet
-	slow, sorted
-HashMap
-	fastest map implementation
-TreeMap
-	slow, sorted keys
-Hashtable
-	slow,thread-safe,legacy class
+----------------------------------------
+- Behavior: Key-Value pairs.
+- Usage:
+    - `put(key, value)` adds data.
+    - `get(key)` retrieves value.
+- Properties: Keys must be unique. Keys may be strictly sorted (e.g., TreeMap).
 
 
+2. IMPLEMENTATION CLASSES
+================================================================================
 
+LIST IMPLEMENTATIONS
+--------------------
+A. ArrayList
+   - Pros: Fast random access (by index), good for traversal.
+   - Cons: Slow for insertion/deletion in the middle (requires shifting).
 
+B. Vector
+   - Characteristics: Thread-safe (synchronized), Legacy class (since Java 1.0).
+   - Cons: Performance is generally slower due to synchronization overhead.
 
+C. LinkedList
+   - Structure: Doubly-linked list.
+   - Pros: Efficient for insertion and deletion (especially from the middle).
+   - Cons: Slower random access compared to ArrayList.
 
+SET IMPLEMENTATIONS
+-------------------
+A. HashSet
+   - Performance: Fastest Set implementation.
+   - Ordering: No guarantee (unordered).
+   - Uniqueness: Ensures strict uniqueness using hash codes.
+
+B. TreeSet
+   - Performance: Slower than HashSet (O(log n)).
+   - Ordering: Sorted (natural order or custom comparator).
+
+MAP IMPLEMENTATIONS
+-------------------
+A. HashMap
+   - Performance: Fastest Map implementation.
+   - Ordering: No guarantee.
+
+B. TreeMap
+   - Performance: Slower than HashMap.
+   - Ordering: Sorted Keys (natural order or custom comparator).
+
+C. Hashtable
+   - Characteristics: Thread-safe (synchronized), Legacy class.
+   - Cons: Slower due to synchronization; does not allow null keys/values.

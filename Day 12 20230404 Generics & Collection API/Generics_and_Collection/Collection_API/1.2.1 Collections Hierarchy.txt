@@ -1,0 +1,46 @@
+JAVA COLLECTION FRAMEWORK - PROFESSIONAL + LEGACY
+[I] = Interface
+[C] = Class
+(Thread-Safe) = Safe for multi-threaded use
+(Legacy) = Old standard (Synchronized & slow). Avoid in new code.
+
+---------- COLLECTION HIERARCHY ----------
+
+Iterable [I]
+└── Collection [I]
+    ├── List [I]
+    │   ├── ArrayList [C]            <-- Default choice
+    │   ├── LinkedList [C]
+    │   ├── CopyOnWriteArrayList [C] (Thread-Safe, modern)
+    │   └── Vector [C]               (Legacy, Thread-Safe)
+    │       └── Stack [C]            (Legacy, use Deque instead)
+    │
+    ├── Set [I]
+    │   ├── HashSet [C]              <-- Default choice
+    │   │   └── LinkedHashSet [C]    (Ordered by insertion)
+    │   ├── TreeSet [C]              (Sorted)
+    │   └── CopyOnWriteArraySet [C]  (Thread-Safe)
+    │
+    └── Queue [I]
+        ├── PriorityQueue [C]        (Ordered by priority)
+        ├── Deque [I]                (Double-ended queue)
+        │   ├── ArrayDeque [C]       <-- Modern replacement for Stack
+        │   └── LinkedList [C]
+        │
+        └── BlockingQueue [I]        (Thread-Safe, crucial for Producer-Consumer)
+            ├── ArrayBlockingQueue [C]
+            ├── LinkedBlockingQueue [C]
+            └── PriorityBlockingQueue [C]
+
+
+---------- MAP HIERARCHY ----------
+
+Map [I]
+├── HashMap [C]                      <-- Default choice
+│   └── LinkedHashMap [C]            (Ordered by insertion)
+├── TreeMap [C]                      (Sorted keys)
+│
+├── ConcurrentMap [I]                (Thread-Safe)
+│   └── ConcurrentHashMap [C]        <-- Modern replacement for Hashtable
+│
+└── Hashtable [C]                    (Legacy, Thread-Safe but slow)
