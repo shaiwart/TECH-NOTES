@@ -1,0 +1,12 @@
+01. What is Lambda Expression.doc
+02. Why Lambda.doc
+03. Lambda expressions.doc
+04. Functional Interface info.txt
+05. FunctionalInterface More Info.doc
+06. How to create FunctionalInterface.doc
+07. How to use @FunctionalInterface annotation.txt
+08. Why cant a lambda expression work with non-functional interface.doc
+09. About Abstract Class and Lambda.txt
+10. AnonymousDemo.java
+11. Programs
+12. Lambda Assignments.txt
