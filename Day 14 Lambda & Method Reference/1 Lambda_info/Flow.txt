@@ -7,6 +7,6 @@
 7. How to use @FunctionalInterface annotation.txt
 8. Why cant a lambda expression work with non-functional interface.doc
 9. About Abstract Class and Lambda.txt
-10. AnonymousDemo.java
+10. Anonymous Class and Lambda.md
 11. Programs
 12. Lambda Assignments.txt
