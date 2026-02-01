@@ -134,6 +134,22 @@ Cartesian product (rare; used for generating combinations).
 
 ### COUNT / SUM / AVG / MIN / MAX
 
+``` sql
+-- ORDERS TABLE
+order_id | user_id | order_date | amount
+---------+---------+------------+--------
+101      | 1       | 2024-01-05 | 1200
+102      | 1       | 2024-01-20 | 800
+103      | 2       | 2024-02-10 | 1500
+104      | 2       | 2024-02-18 | 2200
+105      | 2       | 2024-03-01 | 1800
+106      | 3       | 2024-01-15 | 600
+107      | 4       | 2024-02-05 | 900
+108      | 5       | 2024-03-10 | 2500
+109      | 5       | 2024-03-18 | 3000
+110      | 6       | 2024-02-22 | 2000
+```
+
 ```sql
 SELECT user_id, COUNT(*) AS total_orders
 FROM orders
@@ -157,7 +173,7 @@ HAVING COUNT(*) >= 5;
 ```
 #### HAVING in detail
 👉 HAVING is for conditions on a group, not on individual rows. So you can put only things that make sense after grouping.
-[What things we can write in HAVING details](/DATABASE/sql.having.md)
+[What things we can write in HAVING -- detailed note](/DATABASE/sql.having.md)
 
 ### COUNT(*) vs COUNT(col)
 
