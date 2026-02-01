@@ -1,0 +1,2 @@
+A collection is a data structure that holds elements. Each element is computed before it actually becomes a part of that collection.
+On the other hand, a stream is not a data structure. A stream is a pipeline of operations that compute the elements on-demand. Though we can create a stream from a collection and apply a number of operations, the original collection doesn’t change. 

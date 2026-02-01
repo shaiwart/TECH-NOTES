@@ -1,0 +1,8 @@
+There are three major problems with the above approach:
+We just want to know the sum of integers but we would also have to provide how the iteration will take place, this is also called external iteration because client program is handling the algorithm to iterate over the list.
+The program is sequential in nature, there is no way we can do this in parallel easily.
+There is a lot of code to do even a simple task.
+To overcome all the above shortcomings, Java 8 introduces Stream API. We can use Stream API to implement internal iteration that is better because java framework is in control of the iteration. 
+Internal iteration provides several features such as sequential and parallel execution, filtering based on the given criteria, mapping etc. 
+Most of the Stream API method arguments are functional interfaces, so lambda expressions work very well with them.
+

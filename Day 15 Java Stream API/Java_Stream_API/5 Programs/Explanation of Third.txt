@@ -1,0 +1,48 @@
+stringCollection.stream().filter((s) -> s.startsWith("a")).forEach(System.out::println);
+
+stringCollection.stream()
+		Returns a sequential Stream with this collection as its source. 
+
+Interface Stream<T>
+
+	filter(Predicate<? super T> predicate) 
+
+filter() accepts “Predicate”
+
+Predicates
+Predicates are boolean-valued functions of one argument. The interface contains various default methods for composing predicates to complex logical terms (and, or, negate)
+
+filter((s) -> s.startsWith("a"))
+here we are passing child class of "Predicate" 		[(s) -> s.startsWith("a")] which implements "test(T t)" method which returns boolean.
+
+filter() method
+Returns a stream consisting of the elements of this stream that match the given predicate. 
+
+filter() method returns
+	Stream
+		we are invoking "forEach()" method of stream which takes the argument as
+child class of "Consumer" functional interface .
+this child class of "Consumer" implements following function
+
+ HYPERLINK "https://docs.oracle.com/javase/8/docs/api/java/util/function/Consumer.html" \l "accept-T-" accept( HYPERLINK "https://docs.oracle.com/javase/8/docs/api/java/util/function/Consumer.html" \o "type parameter in Consumer" T t) 
+
+Performs this operation on the given argument.
+In our case the operation is “System.out::println”
+
+
+forEach(System.out::println);
+	here forEach takes implementation of 
+
+Interface Consumer<T>
+		Functional Interface:
+This is a functional interface and can therefore be used as the assignment target for a lambda expression or method reference.
+
+Consumers
+Consumers represents operations to be performed on a single input argument
+
+
+Collections in Java 8 are extended so you can simply create streams either by calling Collection.stream() or Collection.parallelStream().
+
+Filter accepts a predicate to filter all elements of the stream. This operation is intermediate which enables us to call another stream operation (forEach) on the result. ForEach accepts a consumer to be executed for each element in the filtered stream. ForEach is a terminal operation. It's void, so we cannot call another stream operation.
+
+

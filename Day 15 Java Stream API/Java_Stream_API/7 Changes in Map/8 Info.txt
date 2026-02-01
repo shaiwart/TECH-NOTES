@@ -1,0 +1,30 @@
+default  HYPERLINK "file:///D:\\JDK_8_docs\\api\\java\\util\\Map.html" \o "type parameter in Map" V
+ HYPERLINK "file:///D:\\JDK_8_docs\\api\\java\\util\\Map.html" \l "computeIfAbsent-K-java.util.function.Function-" computeIfAbsent( HYPERLINK "file:///D:\\JDK_8_docs\\api\\java\\util\\Map.html" \o "type parameter in Map" K key,  HYPERLINK "file:///D:\\JDK_8_docs\\api\\java\\util\\function\\Function.html" \o "interface in java.util.function" Function<? super  HYPERLINK "file:///D:\\JDK_8_docs\\api\\java\\util\\Map.html" \o "type parameter in Map" K,? extends  HYPERLINK "file:///D:\\JDK_8_docs\\api\\java\\util\\Map.html" \o "type parameter in Map" V> mappingFunction) 
+If the specified key is not already associated with a value (or is mapped to null), attempts to compute its value using the given mapping function and enters it into this map unless null.
+
+
+default  HYPERLINK "file:///D:\\JDK_8_docs\\api\\java\\util\\Map.html" \o "type parameter in Map" V
+ HYPERLINK "file:///D:\\JDK_8_docs\\api\\java\\util\\Map.html" \l "computeIfPresent-K-java.util.function.BiFunction-" computeIfPresent( HYPERLINK "file:///D:\\JDK_8_docs\\api\\java\\util\\Map.html" \o "type parameter in Map" K key,  HYPERLINK "file:///D:\\JDK_8_docs\\api\\java\\util\\function\\BiFunction.html" \o "interface in java.util.function" BiFunction<? super  HYPERLINK "file:///D:\\JDK_8_docs\\api\\java\\util\\Map.html" \o "type parameter in Map" K,? super  HYPERLINK "file:///D:\\JDK_8_docs\\api\\java\\util\\Map.html" \o "type parameter in Map" V,? extends  HYPERLINK "file:///D:\\JDK_8_docs\\api\\java\\util\\Map.html" \o "type parameter in Map" V> remappingFunction) 
+If the value for the specified key is present and non-null, attempts to compute a new mapping given the key and its current mapped value.
+
+
+default  HYPERLINK "file:///D:\\JDK_8_docs\\api\\java\\util\\Map.html" \o "type parameter in Map" V
+ HYPERLINK "file:///D:\\JDK_8_docs\\api\\java\\util\\Map.html" \l "merge-K-V-java.util.function.BiFunction-" merge( HYPERLINK "file:///D:\\JDK_8_docs\\api\\java\\util\\Map.html" \o "type parameter in Map" K key,  HYPERLINK "file:///D:\\JDK_8_docs\\api\\java\\util\\Map.html" \o "type parameter in Map" V value,  HYPERLINK "file:///D:\\JDK_8_docs\\api\\java\\util\\function\\BiFunction.html" \o "interface in java.util.function" BiFunction<? super  HYPERLINK "file:///D:\\JDK_8_docs\\api\\java\\util\\Map.html" \o "type parameter in Map" V,? super  HYPERLINK "file:///D:\\JDK_8_docs\\api\\java\\util\\Map.html" \o "type parameter in Map" V,? extends  HYPERLINK "file:///D:\\JDK_8_docs\\api\\java\\util\\Map.html" \o "type parameter in Map" V> remappingFunction) 
+If the specified key is not already associated with a value or is associated with null, associates it with the given non-null value.
+
+
+default  HYPERLINK "file:///D:\\JDK_8_docs\\api\\java\\util\\Map.html" \o "type parameter in Map" V
+ HYPERLINK "file:///D:\\JDK_8_docs\\api\\java\\util\\Map.html" \l "putIfAbsent-K-V-" putIfAbsent( HYPERLINK "file:///D:\\JDK_8_docs\\api\\java\\util\\Map.html" \o "type parameter in Map" K key,  HYPERLINK "file:///D:\\JDK_8_docs\\api\\java\\util\\Map.html" \o "type parameter in Map" V value) 
+If the specified key is not already associated with a value (or is mapped to null) associates it with the given value and returns null, else returns the current value.
+
+
+default boolean
+ HYPERLINK "file:///D:\\JDK_8_docs\\api\\java\\util\\Map.html" \l "remove-java.lang.Object-java.lang.Object-" remove( HYPERLINK "file:///D:\\JDK_8_docs\\api\\java\\lang\\Object.html" \o "class in java.lang" Object key,  HYPERLINK "file:///D:\\JDK_8_docs\\api\\java\\lang\\Object.html" \o "class in java.lang" Object value) 
+Removes the entry for the specified key only if it is currently mapped to the specified value.
+default  HYPERLINK "file:///D:\\JDK_8_docs\\api\\java\\util\\Map.html" \o "type parameter in Map" V
+ HYPERLINK "file:///D:\\JDK_8_docs\\api\\java\\util\\Map.html" \l "replace-K-V-" replace( HYPERLINK "file:///D:\\JDK_8_docs\\api\\java\\util\\Map.html" \o "type parameter in Map" K key,  HYPERLINK "file:///D:\\JDK_8_docs\\api\\java\\util\\Map.html" \o "type parameter in Map" V value) 
+Replaces the entry for the specified key only if it is currently mapped to some value.
+default boolean
+ HYPERLINK "file:///D:\\JDK_8_docs\\api\\java\\util\\Map.html" \l "replace-K-V-V-" replace( HYPERLINK "file:///D:\\JDK_8_docs\\api\\java\\util\\Map.html" \o "type parameter in Map" K key,  HYPERLINK "file:///D:\\JDK_8_docs\\api\\java\\util\\Map.html" \o "type parameter in Map" V oldValue,  HYPERLINK "file:///D:\\JDK_8_docs\\api\\java\\util\\Map.html" \o "type parameter in Map" V newValue) 
+Replaces the entry for the specified key only if currently mapped to the specified value.
+

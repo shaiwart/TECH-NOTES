@@ -1,0 +1,22 @@
+java.util.function
+Interface BiFunction<T,U,R>
+Type Parameters:
+T - the type of the first argument to the function
+U - the type of the second argument to the function
+R - the type of the result of the function
+All Known Subinterfaces:
+ HYPERLINK "file:///D:\\JDK_8_docs\\api\\java\\util\\function\\BinaryOperator.html" \o "interface in java.util.function" BinaryOperator<T>
+Functional Interface:
+This is a functional interface and can therefore be used as the assignment target for a lambda expression or method reference.
+
+
+ HYPERLINK "file:///D:\\JDK_8_docs\\api\\java\\lang\\FunctionalInterface.html" \o "annotation in java.lang" @FunctionalInterface
+public interface BiFunction<T,U,R>
+Represents a function that accepts two arguments and produces a result. This is the two-arity specialization of  HYPERLINK "file:///D:\\JDK_8_docs\\api\\java\\util\\function\\Function.html" \o "interface in java.util.function" Function. 
+This is a  HYPERLINK "file:///D:\\JDK_8_docs\\api\\java\\util\\function\\package-summary.html" functional interface whose functional method is  HYPERLINK "file:///D:\\JDK_8_docs\\api\\java\\util\\function\\BiFunction.html" \l "apply-T-U-" apply(Object, Object).
+
+
+ HYPERLINK "file:///D:\\JDK_8_docs\\api\\java\\util\\function\\BiFunction.html" \o "type parameter in BiFunction" R
+ HYPERLINK "file:///D:\\JDK_8_docs\\api\\java\\util\\function\\BiFunction.html" \l "apply-T-U-" apply( HYPERLINK "file:///D:\\JDK_8_docs\\api\\java\\util\\function\\BiFunction.html" \o "type parameter in BiFunction" T t,  HYPERLINK "file:///D:\\JDK_8_docs\\api\\java\\util\\function\\BiFunction.html" \o "type parameter in BiFunction" U u) 
+Applies this function to the given arguments
+
