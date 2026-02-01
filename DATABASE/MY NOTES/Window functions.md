@@ -51,6 +51,8 @@ Think in **two layers**:
 
 > “Who is 1st, 2nd, 3rd highest salary **within the same department**?”
 
+[See the example](#see-the-images-)
+
 ### Layer 2 – Filter
 
 > “Keep only rank ≤ 3”
