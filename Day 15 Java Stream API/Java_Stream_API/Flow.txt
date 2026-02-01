@@ -1,0 +1,25 @@
+1. What are Streams API in Java8.doc
+2. Collection API vs Stream API.doc
+3. Intermediate vs Terminal Operation.txt
+4. Example of Intermediate and terminal operations.txt
+5. Programs
+6. Assignments
+7. Changes in Map
+8. Info.doc
+9. What is new in Map.doc
+10. What is BiFunction interface.doc
+11. How does forEach work.txt
+12. putIfAbsent info.doc
+13. putIfAbsent info.txt
+14. Difference between put and putIfAbsent.txt
+15. replace vs put.txt
+16. source code of putIfAbsent.txt
+17. source code of replace.txt
+18. source code of getOrDefault.txt
+19. source code of computeIfAbsent.txt
+20. source code of computeIfPresent.txt
+21. source code of merge.txt
+22. Example 1.txt
+23. Example 2.txt
+24. Example 3.txt
+25. Example 4.txt
