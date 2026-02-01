@@ -1,0 +1,37 @@
+delimiter $$
+create function startf2(num1 float)
+returns varchar(200)
+DETERMINISTIC
+begin
+	declare digit int;
+	declare mflag int default 0;
+	declare num int;
+	set num = floor(num1);
+	
+	if num<0 then
+		set mflag =1;
+		set num = num*(-1);
+	end if;
+
+	set digit = countdigits(num);
+
+	if digit=0 then return 'Zero';
+
+	elseif digit>8 then return 'Cannot show word format for numbers more than 8 digits.';
+	
+	elseif num<num1 then
+		if mflag = 1 then
+			return concat('minus ',concatWords1(num,digit,1),' point', returnpoints(num1-num));
+		else
+			return concat(concatWords1(num,digit,1),' point', returnpoints(num1-num));
+		end if;
+	elseif digit<=8	
+		if mflag = 1 then
+			return concat('minus ',concatWords1(num,digit,1));
+		else
+			return concatWords1(num,digit,1);
+	end if;
+
+end;
+$$
+delimiter ;

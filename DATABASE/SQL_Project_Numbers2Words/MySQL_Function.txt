@@ -1,0 +1,377 @@
+drop function countdigits;
+
+delimiter $$
+create function countdigits(num int)
+returns int
+DETERMINISTIC
+begin
+	declare count int default 0;
+	while num>0 do
+		set num = num/10;
+		set count = count+1;
+	end while;
+	return count;
+end;
+$$
+delimiter ;
+
+
+select countdigits(12345);
+
+
+
+drop function returnWordUnits;
+
+delimiter $$
+create function returnWordUnits(num int)
+returns varchar(10)
+DETERMINISTIC
+begin
+	if num=1 then return "one";
+	elseif num=2 then return "two";
+	elseif num=3 then return "three";
+        elseif num=4 then return "four";
+        elseif num=5 then return "five";
+        elseif num=6 then return "six";
+        elseif num=7 then return "seven";
+        elseif num=8 then return "eight";
+        elseif num=9 then return "nine";
+        else return "";
+	end if;
+end;
+$$
+delimiter ;
+
+
+select returnWordUnits(7);
+
+
+
+
+drop function returnwordtens;
+
+delimiter $$
+create function returnwordtens(num int)
+returns varchar(20)
+DETERMINISTIC
+begin
+	declare units int default mod(num,10);
+	declare tens int default floor(num/10);
+	if tens=2 then return concat('twenty ',returnWordUnits(units));
+	elseif tens=3 then return concat('thirty ',returnWordUnits(units));
+        elseif tens=4 then return concat('fourty ',returnWordUnits(units));
+        elseif tens=5 then return concat('fifty ',returnWordUnits(units));
+        elseif tens=6 then return concat('sixty ',returnWordUnits(units));
+        elseif tens=7 then return concat('seventy ',returnWordUnits(units));
+        elseif tens=8 then return concat('eighty ',returnWordUnits(units));
+        elseif tens=9 then return concat('ninty ',returnWordUnits(units));
+	elseif tens=1 then
+		if units=1 then return 'eleven';
+            	elseif units=2 then return "tweleve";
+            	elseif units=3 then return "thirteen";
+            	elseif units=4 then return "fourteen";
+            	elseif units=5 then return "fifteen";
+            	elseif units=6 then return "sixteen";
+            	elseif units=7 then return "seventeen";
+            	elseif units=8 then return "eighteen";
+            	elseif units=9 then return "nineteen";
+            	else return "ten";
+        end if;
+        else return returnWordUnits(units);
+	end if;
+end;
+$$
+delimiter ;
+
+
+
+select returnwordtens(16);
+
+
+
+
+drop function concatWords;
+
+
+
+********************RECURSIVE FUNCTION IN MYSQL IS NOT ALLOWED*************
+
+delimiter $$
+create function concatWords(num int, digits int, count int)
+returns text
+DETERMINISTIC
+begin
+	declare str varchar(20);
+	if digits>=count then
+		if count=1 then
+			set str = returnwordtens(mod(num,100));
+			return concat(concatWords(floor(num/100),digits, count+2),str);
+		else
+                	return "";
+		end if;
+	else
+            return "";
+	end if;
+
+
+
+
+end;
+$$
+delimiter ;
+
+*********************************RECURSIVE FUNCTION ENDS**********************
+
+
+
+
+
+drop function concatWords1;
+
+delimiter $$
+create function concatWords1(num int, digits int, count int)
+returns varchar(200)
+DETERMINISTIC
+begin
+	declare tempStr varchar(20);
+	if count<=digits then
+		set tempStr=returnwordtens(mod(num,100));
+		return concat(concatWords3(floor(num/100),digits, count+2),tempStr);
+	else
+		return '';
+	end if;
+end;
+$$
+delimiter ;
+
+select concatWords1(12,2,1);
+
+
+drop function concatWords3;
+
+delimiter $$
+create function concatWords3(num int, digits int, count int)
+returns varchar(200)
+DETERMINISTIC
+begin
+	declare tempStr varchar(20);
+	if count<=digits then
+		set tempStr=returnwordtens(mod(num,10));
+		if tempStr = '' then 
+			return concat(concatWords4(floor(num/10),digits, count+1),tempStr);
+		else
+			return concat(concatWords4(floor(num/10),digits, count+1),tempStr,' hundread and ');
+		end if;
+	else
+		return '';
+	end if;
+end;
+$$
+delimiter ;
+
+
+
+drop function concatWords4;
+
+delimiter $$
+create function concatWords4(num int, digits int, count int)
+returns varchar(200)
+DETERMINISTIC
+begin
+	declare tempStr varchar(20);
+	if count<=digits then
+		set tempStr=returnwordtens(mod(num,100));
+		if tempStr = '' then 
+			return concat(concatWords6(floor(num/100),digits, count+2),tempStr);
+		else
+			return concat(concatWords6(floor(num/100),digits, count+2),tempStr,' thousand ');
+		end if;
+	else
+		return '';
+	end if;
+end;
+$$
+delimiter ;
+
+
+
+drop function concatWords6;
+
+delimiter $$
+create function concatWords6(num int, digits int, count int)
+returns varchar(200)
+DETERMINISTIC
+begin
+	declare tempStr varchar(20);
+	if count<=digits then
+		set tempStr=returnwordtens(mod(num,100));
+		if tempStr = '' then 
+			return concat(concatWords8(floor(num/100),digits, count+2),tempStr);
+		else
+			return concat(concatWords8(floor(num/100),digits, count+2),tempStr,' lakh ');
+		end if;
+	else
+		return '';
+	end if;
+end;
+$$
+delimiter ;
+
+
+drop function concatWords8;
+
+delimiter $$
+create function concatWords8(num int, digits int, count int)
+returns varchar(200)
+DETERMINISTIC
+begin
+	declare tempStr varchar(20);
+		set tempStr=returnwordtens(mod(num,100));
+		if tempStr = '' then
+			return '';
+		else
+			return concat(tempStr,' crore ');
+		end if;
+end;
+$$
+delimiter ;
+
+
+
+*************************startfun() with act as main function*********
+
+
+drop function startf;
+
+delimiter $$
+create function startf(num int)
+returns varchar(200)
+DETERMINISTIC
+begin
+	declare digit int;
+	declare mflag int default 0;
+	
+	if num<0 then
+		set mflag =1;
+		set num = num*(-1);
+	end if;
+
+	set digit = countdigits(num);
+
+	if digit=0 then return 'Zero';
+	elseif digit>8 then return 'Cannot show word format for numbers more than 8 digits.';
+	elseif mflag = 1 then return concat('minus ',concatWords1(num,digit,1));
+	else return concatWords1(num,digit,1);
+	end if;
+
+end;
+$$
+delimiter ;
+
+
+*************************************main function ends***************
+
+
+drop function startf2;
+
+delimiter $$
+create function startf2(num1 float)
+returns varchar(200)
+DETERMINISTIC
+begin
+	declare digit int;
+	declare mflag int default 0;
+	declare num int;
+	
+	if num1<0 then
+		set mflag =1;
+		set num1 = num1*(-1);
+	end if;
+
+	set num = floor(num1);
+
+	set digit = countdigits(num);
+
+
+	if digit>8 then return 'Cannot show word format for numbers more than 8 digits.';
+	
+	elseif num<num1 then
+		if mflag = 1 then
+			return concat('minus ',concatWords1(num,digit,1),' point', returnpoints(num1-num));
+		else
+			return concat(concatWords1(num,digit,1),' point', returnpoints(num1-num));
+		end if;
+	else
+		if digit=0 then
+			return 'Zero';
+		if mflag = 1 then
+			return concat('minus ',concatWords1(num,digit,1));
+		else
+			return concatWords1(num,digit,1);
+		end if;
+	end if;
+
+end;
+$$
+delimiter ;
+
+
+
+
+select startf2(12345.123);
+
+
+
+drop function returnPoints;
+
+
+delimiter $$
+create function returnPoints(num float)
+returns varchar(100)
+DETERMINISTIC
+begin
+	declare tempStr varchar(100) default '';
+	declare tempnum int;
+	declare count int default 1;
+	while count<=4 do
+		set tempnum = num*10;
+		set num=mod((num*10),1);
+		set tempStr = concat(tempStr,' ', returnwordUnits(tempnum));
+		set count = count +1;
+	end while;
+	return tempStr;
+
+end;
+$$
+delimiter ;
+
+
+
+select returnPoints(0.1234);
+
+****************drop statement for all major function*************
+
+drop function concatWords1;
+drop function concatWords3;
+drop function concatWords4;
+drop function concatWords6;
+drop function concatWords8;
+
+
+
+
+
+**************************starting statement********************
+delimiter $$
+create function ____()
+returns ____
+DETERMINISTIC
+begin
+
+
+
+
+
+end;
+$$
+delimiter ;

@@ -1,0 +1,420 @@
+--Number to Words Project using SQL functions.
+
+create database num2word_final;
+
+use num2word_final;
+
+create table unit(num int ,word varchar (20));
+insert into unit values(0,''),(1,'One'),(2,'Two'),(3,'Three'),(4,'Four'),(5,'Five'),(6,'Six'),(7,'Seven'),(8,'Eight'),(9,'Nine');
+
+create table tenth(num int , word varchar (20));
+insert into tenth values(10,'Ten'),(11,'Eleven'),(12,'Twelve'),(13,'Thirteen'),(14,'Fourteen'),(15,'Fifteen'),(16,'Sixteen'),(17,'Seventeen'),(18,'Eighteen'),(19,'Nineteen'),(20,'Twenty'),(30,'Thirty'),(40,'Fourty'),(50,'Fifty'),(60,'Sixty'),(70,'Seventy'),(80,'Eighty'),(90,'Ninety');
+
+create table posword(num int, word varchar (20));
+insert into posword values(1,'Hundred'),(2,'Thousand'),(3,'Lakh'),(4,'Crore');
+
+
+
+select * from unit;
+select * from tenth;
+select * from posword;
+
+
+
+
+************************************* countdigit STARTS *************************
+
+drop function countdigits;
+
+delimiter $$
+create function countdigits(num int)
+returns int
+DETERMINISTIC
+begin
+	declare count int default 0;
+	while num>0 do
+		set num = num/10;
+		set count = count+1;
+	end while;
+	return count;
+end;
+$$
+delimiter ;
+
+************************************* countdigits ENDS *************************
+
+
+select countdigits(12345);
+
+
+
+
+
+
+
+
+
+
+*************************************sf_Units STARTS *************************
+
+drop function sf_units;
+
+delimiter $$
+create function sf_units(num int)
+returns varchar(10)
+DETERMINISTIC
+begin
+	return(select word from unit u where u.num=num);
+end;
+$$
+delimiter ;
+
+
+**************************************sf_units ENDS******************
+
+
+
+
+
+
+
+
+
+
+*******************sf_tens STARTS*****************************
+
+
+
+drop function sf_tens;
+
+delimiter $$
+create function sf_tens(num1 int)
+returns varchar(100)
+DETERMINISTIC
+begin
+	declare num int default mod(num1, 100);
+	if(num>20) then
+		return(concat((select word from tenth t where t.num=(floor(num/10)*10)),' ',sf_units(floor(mod(num1,10)))));
+	elseif(num>9 && num<=20) then
+		return(concat((select word from tenth t where t.num=num)));
+	else
+		return sf_units(floor(mod(num1,10)));
+	end if;
+end;
+$$
+delimiter ;
+
+*******************sf_tens ENDS*****************************
+
+
+
+select sf_tens(1);
+select sf_tens(9);
+select sf_tens(10);
+select sf_tens(11);
+select sf_tens(19);
+select sf_tens(21);
+select sf_tens(20);
+select sf_tens(65);
+select sf_tens(78);
+select sf_tens(99);
+
+
+
+
+
+
+
+
+
+
+
+
+
+*******************sf_hundread STARTS*****************************
+
+drop function sf_hundread;
+
+delimiter $$
+create function sf_hundread(num1 int, pos int)
+returns varchar(100)
+DETERMINISTIC
+begin
+	declare num int default floor(mod(num1, 1000)/100);
+	declare  tempStr varchar(20) default (select word from unit u where u.num=num);
+	declare tempten varchar(20) default sf_tens(mod(num1,100));
+	if(num1>=100) then
+		if tempStr='' then
+			return(concat(sf_thousand(floor(num1/1000), pos+1),sf_tens(mod(num1,100))));
+		else
+			if tempten='' then
+				return(concat(sf_thousand(floor(num1/1000), pos+1),tempStr,' ',(select word from posword p where p.num=pos)));
+			else
+				return(concat(sf_thousand(floor(num1/1000), pos+1),tempStr,' ',(select word from posword p where p.num=pos), ' and ',tempten));
+			end if;
+		end if;
+	else
+		return sf_tens(mod(num1,100));
+	end if;
+end;
+$$
+delimiter ;
+
+
+*******************sf_hundread ENDS*****************************
+
+
+select sf_hundread(101,1);
+select sf_hundread(109,1);
+select sf_hundread(110,1);
+select sf_hundread(211,1);
+select sf_hundread(319,1);
+select sf_hundread(421,1);
+select sf_hundread(520,1);
+select sf_hundread(665,1);
+select sf_hundread(778,1);
+select sf_hundread(999,1);
+
+
+select sf_hundread(1,1);
+select sf_hundread(9,1);
+select sf_hundread(10,1);
+select sf_hundread(11,1);
+select sf_hundread(19,1);
+select sf_hundread(20,1);
+select sf_hundread(21,1);
+select sf_hundread(37,1);
+select sf_hundread(99,1);
+
+
+
+
+*******************sf_thousand STARTS*****************************
+
+drop function sf_thousand;
+
+delimiter $$
+create function sf_thousand(num1 int, pos int)
+returns varchar(100)
+DETERMINISTIC
+begin
+	declare num int default mod(num1, 100);
+	declare  tempStr varchar(20) default sf_tens(num);
+	if tempStr='' then
+		return sf_lakh(floor(num1/100), pos+1);
+	else
+		return(concat(sf_lakh(floor(num1/100), pos+1),tempStr,' ',(select word from posword p where p.num=pos),' '));
+	end if;
+
+end;
+$$
+delimiter ;
+
+
+*******************sf_thousand ENDS*****************************
+
+select sf_hundread(90101,1);
+select sf_hundread(85109,1);
+select sf_hundread(71110,1);
+select sf_hundread(60211,1);
+select sf_hundread(56319,1);
+select sf_hundread(44421,1);
+select sf_hundread(20520,1);
+select sf_hundread(10665,1);
+select sf_hundread(5778,1);
+select sf_hundread(1001,1);
+select sf_hundread(10001,1);
+
+
+
+
+******************* sf_lakh STARTS*****************************
+
+
+drop function sf_lakh;
+
+delimiter $$
+create function sf_lakh(num1 int, pos int)
+returns varchar(100)
+DETERMINISTIC
+begin
+	declare num int default mod(num1, 100);
+	declare  tempStr varchar(20) default sf_tens(num);
+	if tempStr='' then
+		return sf_crore(floor(num1/100), pos+1);
+	else
+		return(concat(sf_crore(floor(num1/100), pos+1),tempStr,' ',(select word from posword p where p.num=pos),' '));
+	end if;
+
+end;
+$$
+delimiter ;
+
+******************* sf_lakh ENDS*****************************
+
+select sf_hundread(190101,1);
+select sf_hundread(1085109,1);
+select sf_hundread(9971110,1);
+select sf_hundread(9060211,1);
+select sf_hundread(1056319,1);
+select sf_hundread(44421,1);
+select sf_hundread(20520,1);
+select sf_hundread(10665,1);
+select sf_hundread(5778,1);
+select sf_hundread(10001,1);
+select sf_hundread(100001,1);
+
+
+******************* sf_crore STARTS*****************************
+
+
+drop function sf_crore;
+
+delimiter $$
+create function sf_crore(num1 int, pos int)
+returns varchar(100)
+DETERMINISTIC
+begin
+	declare num int default mod(num1, 100);
+	declare  tempStr varchar(20) default sf_tens(num);
+	if tempStr='' then
+		return '';
+	else
+		return(concat(tempStr,' ',(select word from posword p where p.num=pos),' '));
+	end if;
+end;
+$$
+delimiter ;
+
+******************* sf_crore ENDS*****************************
+
+
+
+
+
+
+
+*************************main STARTS *********
+
+
+drop function main;
+
+delimiter $$
+create function main(num1 float)
+returns varchar(200)
+DETERMINISTIC
+begin
+	declare num int;
+	declare digit int;
+	declare mflag int default 0;
+	declare tempStr varchar(200);
+	declare pointnum float;
+	
+	if num1<0 then
+		set mflag =1;
+		set num1 = num1*(-1);
+	end if;
+	set num = floor(num1);
+	set pointnum = num1-num;
+	set digit = countdigits(num);
+	if digit>8 then
+		return 'Cannot show word format for numbers more than 8 digits.';
+	else
+		set tempStr = sf_hundread(num,1);
+		if tempStr = '' then
+			set tempStr = 'Zero';
+		end if;
+		if mflag = 1 then
+			set tempStr = concat('minus ',tempStr);
+		end if;
+		if(pointnum>0) then
+			set tempStr = concat(tempStr, ' point ', returnPoints(pointnum));
+		end if;
+	end if;
+	return tempStr;
+end;
+$$
+delimiter ;
+
+*************************************main function ends***************
+
+select main(0);
+select main(-1);
+select main(-10000000);
+select main(10000001);
+select main(19);
+select main(20);
+select main(21);
+select main(100);
+select main(0.1234);
+select main(-0.1234);
+select main();
+select main();
+select main();
+
+
+
+
+
+
+
+
+********************************* returnPoints START **********************************
+
+drop function returnPoints;
+
+delimiter $$
+create function returnPoints(num float)
+returns varchar(100)
+DETERMINISTIC
+begin
+	declare tempStr varchar(100) default '';
+	declare unitStr varchar(10) default '';
+	declare tempnum int default round(num*100000000);
+	declare count int default 1;
+	declare isempty int default 1;
+	while count<=8 do
+		set unitStr = sf_Units(tempnum%10);
+		if unitStr <> '' then
+			set isempty = 0;
+		end if;
+		
+		if (isempty=0 && unitStr = '') then
+			set tempStr = concat('Zero ',tempStr);
+		else
+			set tempStr = concat(unitStr,' ',tempStr);
+		end if;
+		set tempnum = tempnum/10;
+		set count = count +1;
+	end while;
+	return tempStr;
+
+end;
+$$
+delimiter ;
+
+********************************* returnPoints END **********************************
+
+
+select returnPoints(0.1234);
+select returnPoints(0.12340000);
+select returnPoints(0.00001);
+select returnPoints(0.43210);
+
+
+
+
+**************************starting statement********************
+delimiter $$
+create function ____()
+returns ____
+DETERMINISTIC
+begin
+
+
+
+
+
+end;
+$$
+delimiter ;
