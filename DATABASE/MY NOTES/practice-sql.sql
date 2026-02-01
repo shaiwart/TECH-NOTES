@@ -24,5 +24,61 @@
 -- (14, 'N', 30, 88000);
 
 
-select *
-from employees
+-- 
+-- select *
+-- from employees
+-- order by dept_id
+
+
+-- 1️⃣ RANKING WINDOW FUNCTIONS (MOST IMPORTANT)
+-- SELECT *,
+-- 	   DENSE_RANK() OVER (
+-- 		   PARTITION BY dept_id
+-- 		   ORDER BY salary DESC
+-- 	   ) AS rnk
+-- FROM employees
+
+-- FULL QUERY
+-- SELECT *
+-- FROM (
+-- 	SELECT *,
+-- 		   DENSE_RANK() OVER (
+-- 			   PARTITION BY dept_id
+-- 			   ORDER BY salary DESC
+-- 		   ) AS rnk
+-- 	FROM employees
+-- )
+-- WHERE rnk = 2
+
+-- 2️⃣ AGGREGATE WINDOW FUNCTIONS
+-- 	SELECT *,
+-- 		   AVG(salary) OVER (
+-- 			   PARTITION BY dept_id
+-- 			   -- ORDER BY name
+-- 		   ) AS avg_salary,
+		   
+-- 		   MIN(salary) OVER (
+-- 			   PARTITION BY dept_id
+-- 		   ) AS min_salary,
+		   
+-- 		   MAX(salary) OVER (
+-- 			   PARTITION BY dept_id
+-- 		   ) AS max_salary,
+		   
+-- 		   SUM(salary) OVER (
+-- 			   PARTITION BY dept_id
+-- 		   ) AS total_salary_of_dept,
+		   
+-- 		   COUNT(*) OVER (
+-- 			   PARTITION BY dept_id
+-- 		   ) AS total_emp
+-- 	FROM employees
+
+
+-- 3️⃣ VALUE / ANALYTIC WINDOW FUNCTIONS
+SELECT *,
+	   FIRST_VALUE(salary) OVER (
+		   PARTITION BY dept_id 
+		   ORDER BY salary DESC
+	   ) AS first_value
+FROM employees

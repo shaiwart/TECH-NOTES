@@ -215,6 +215,9 @@ WHERE EXISTS (
 
 Window functions let you compute values **without collapsing rows** like GROUP BY.
 
+[⭐️ Detailed note : Ranking Window functions (Very nicely explained here)](/DATABASE/MY%20NOTES/Ranking%20Window%20functions.md)
+[Detailed note : All Window functions](/DATABASE/MY%20NOTES/All%20Window%20functions.md)
+
 ### ROW_NUMBER / RANK / DENSE_RANK
 
 **Top N per group** pattern:
@@ -222,19 +225,21 @@ Window functions let you compute values **without collapsing rows** like GROUP B
 ```sql
 SELECT *
 FROM (
-  SELECT
-    e.*,
-    ROW_NUMBER() OVER (PARTITION BY dept_id ORDER BY salary DESC) AS rn
-  FROM employees e
-) t
-WHERE rn <= 3;
+	SELECT *,
+		   DENSE_RANK() OVER (
+			   PARTITION BY dept_id
+			   ORDER BY salary DESC
+		   ) AS rnk
+	FROM employees
+)
+WHERE rnk <= 3
 ```
 
 * `ROW_NUMBER()` → 1,2,3,4… unique
 * `RANK()` → ties share rank, skips numbers (1,1,3)
 * `DENSE_RANK()` → ties share rank, no skip (1,1,2)
 
-### Running total
+### Running total [NOTE](/DATABASE/MY%20NOTES/Running%20total.md)
 
 ```sql
 SELECT
