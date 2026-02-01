@@ -278,7 +278,7 @@ SELECT city FROM vendors;
 
 ---
 
-## 9) Common Interview Query Patterns
+## 9) ⭐️⭐️⭐️ Common Interview Query Patterns
 
 ### 1) Second highest salary
 
@@ -287,8 +287,9 @@ SELECT MAX(salary) AS second_highest
 FROM employees
 WHERE salary < (SELECT MAX(salary) FROM employees);
 ```
+NOTE : Use Ranking window function here, instead of the above approach. Read --> Ranking Window Function
 
-### 2) Duplicate rows by email
+### 2) Find Duplicate : find duplicate rows by email
 
 ```sql
 SELECT email, COUNT(*) c
@@ -297,7 +298,29 @@ GROUP BY email
 HAVING COUNT(*) > 1;
 ```
 
-### 3) Users with no orders
+### 3) Delete duplicates : delete duplicate (keep latest) ⭐️⭐️⭐️
+
+(Depends on DB; using window pattern)
+Keeping the latest one is the hardest part. That why we are using window function.
+
+```sql
+-- USING WINDOW FUNCTION
+DELETE FROM users
+WHERE id IN (
+  SELECT id
+  FROM (
+      SELECT id,
+          ROW_NUMBER() OVER (
+            PARTITION BY email
+            ORDER BY created_at DESC
+          ) AS rank
+      FROM users
+  ) t
+  WHERE rank > 1
+);
+```
+
+### 4) Users with no orders
 
 ```sql
 SELECT u.*
@@ -306,22 +329,6 @@ LEFT JOIN orders o ON o.user_id = u.id
 WHERE o.id IS NULL;
 ```
 
-### 4) Delete duplicates (keep latest)
-
-(Depends on DB; using window pattern)
-
-```sql
-DELETE FROM users
-WHERE id IN (
-  SELECT id
-  FROM (
-    SELECT id,
-           ROW_NUMBER() OVER (PARTITION BY email ORDER BY created_at DESC) rn
-    FROM users
-  ) t
-  WHERE rn > 1
-);
-```
 
 ### 5) Find mismatched records (anti-join)
 
@@ -332,6 +339,8 @@ LEFT JOIN table_b b ON b.key = a.key
 WHERE b.key IS NULL;
 ```
 
+---
+# ADVANCED SECTION
 ---
 
 ## 10) Indexes (interview favorite)
@@ -418,7 +427,7 @@ Avoid by:
 
 ---
 
-## 13) Constraints & Keys
+## 13) ⭐️ Constraints & Keys
 
 * `PRIMARY KEY`
 * `FOREIGN KEY`
