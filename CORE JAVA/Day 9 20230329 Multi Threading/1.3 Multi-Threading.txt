@@ -32,8 +32,8 @@ Java supports thread-based multitasking.
 Application of multi-threading in Java: due to multithreading feature, Java has become effective on server side. e.g. Servlet, JSP etc.
 
 Thread-Scheduler
-a) Pre-emptive
-b) Time-slice
+a) Pre-emptive: Priority based. Higher priority thread gets chance first.
+b) Time-slice: Round-Robin. Fixed time is allocated to each thread for fairness.
 
 JVM can have any scheduler, i.e. either pre-emptive or time-slice.
 It is because JVM is different for different platforms.
@@ -43,9 +43,9 @@ Java has given certain mechanisms (functions) whereby you can make sure, your mu
 
 Following are the imp. steps required for multithreading application.
 1) Create thread/s
-2) Define thread execution body
-3) Register thread with the thread scheduler
-4) Thread scheduler will execute the thread/s
+2) Define thread execution body - task which is to be preformed by the thread. basically we are defining run()
+3) Register thread with the thread scheduler - done by programmer.
+4) Thread scheduler will execute the thread/s - done by thread scheduler.
 
 
 Java's multi-threading support lies in
@@ -66,7 +66,8 @@ b) run
 	when the run method is over, thread is dead.
 
 c) sleep   (static)
-	is used to make thread sleep for some time
+	- is used to make thread sleep for some time.
+	- other threads will be working.
 
 d) setName
 	to set the name of thread
@@ -93,6 +94,18 @@ h) getPriority
 
 i) join
 	join() method is used for waiting the thread in execution until the thread on which join is called is not completed.
+
+	Example:
+	Thread t1 = new Thread(() -> {
+		// imagine t1 doing a long task, e.g. downloading a file
+		System.out.println("t1 started work...");
+	});
+	t1.start();
+
+	t1.join();
+	// The current thread (e.g., main) will PAUSE (STOP) here.
+	// It waits for t1 to complete its download.
+	// Only when t1 is dead/finished, main resumes.
 
 Runnable interface: interface which contains abstract method
 
