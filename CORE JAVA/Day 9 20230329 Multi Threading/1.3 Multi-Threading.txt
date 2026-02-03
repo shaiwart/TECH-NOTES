@@ -525,13 +525,25 @@ public class Th8 implements Runnable
 }
 
 
-DeadLock
-=========
-Even though synchronized method or block is used to avoid "Race Condition", there can be danger of "DeadLock" inside it.
-e.g. if one thread is working inside synchronized block or method and if it gets stuck up! Imagine what will happen?
-Neither this thread can complete and release the lock, nor other thread can acquire the lock.
+The Problem: Holding Lock While Waiting (Deadlock / Liveness Failure)
+=====================================================================
+Even with synchronization, we can get stuck if a thread holds a lock while waiting for a condition.
 
-Solution to this is to have a Communication bet'n threads.
+Example: The "Bank Account" Problem
+	Thread A (Withdrawal) wants to withdraw 1500. Balance is 1000.
+	Thread B (Deposit) wants to deposit 1000.
+
+	The "Stuck" Scenario:
+	1. Thread A enters `synchronized withdraw(1500)`. It acquires the lock.
+	2. It sees balance (1000) < 1500.
+	3. Thread A decides to WAIT for more money to arrive (e.g., sitting in a loop).
+	4. **PROBLEM**: Thread A is STILL HOLDING THE LOCK while waiting.
+	5. Thread B tries to enter `synchronized deposit(1000)`.
+	6. Thread B CANNOT enter because A holds the lock.
+
+	Result: Thread A waits for money. Thread B waits for lock. They wait forever.
+
+Solution: Inter-thread Communication (wait and notify)
 i.e. if the thread realizes it can not continue, it should come out of synchronized method or block and release the lock. Now other thread will acquire the lock, execute the code and allow the first thread to resume.
 
 Following are the methods used for communication bet'n threads.
