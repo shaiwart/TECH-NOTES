@@ -112,7 +112,7 @@ Runnable interface: interface which contains abstract method
  void run();
 
 
-There are two ways to create multi-threading application.
+✅ There are two ways to create multi-threading application.
 
 1) extends Thread
 2) implements Runnable
@@ -121,7 +121,7 @@ There are two ways to create multi-threading application.
 e.g.
 extends Thread
 
-public class Th1 extends Thread
+class Th1 extends Thread
 {
 	public void run()
 	{
@@ -130,6 +130,10 @@ public class Th1 extends Thread
 			System.out.println("Hello" + i);
 		}
 	}
+}
+
+public class Test
+{
 	public static void main(String args[])
 	{
 		Th1 t1 = new Th1();
@@ -148,7 +152,7 @@ When main function is over, main thread dies, but user defined thread/s can cont
 i.e. in the above code, after "t1.start()" when main() function is over, main thread dies, but t1's execution will be managed by JVM.
 
 
-public class Th2 extends Thread
+class Th2 extends Thread
 {
 	public void run()
 	{
@@ -158,6 +162,10 @@ public class Th2 extends Thread
 			System.out.println("Hello" + i);
 		}
 	}
+}
+
+class Test2
+{
 	public static void main(String args[])
 	{
 		System.out.println(Thread.currentThread());
@@ -170,7 +178,7 @@ public class Th2 extends Thread
 
 Can we call run() directly?
 
-public class Th3 extends Thread
+class Th3 extends Thread
 {
 	public void run()
 	{
@@ -179,20 +187,24 @@ public class Th3 extends Thread
 			System.out.println("Hello" + i);
 		}
 	}
+}
+
+class Test3
+{
 	public static void main(String args[])
 	{
 		Th3 t1 = new Th3();
 		t1.setName("first");
-		t1.run();
+		t1.run(); // here we are calling the method directly. instead of t1.start()
 	}
 }
 
 We can call run() directly. But in that case it won't be thread execution, it is a normal method call. That is different call stacks won't be created.
 
-More than one user defined-threads:
+More than one user defined-threads
+----------------------------------
 
-
-public class Th4 extends Thread
+class Th4 extends Thread
 {
 	public void run()
 	{
@@ -202,6 +214,10 @@ public class Th4 extends Thread
 			System.out.println("Hello" + i);
 		}
 	}
+}
+
+class Test4
+{
 	public static void main(String args[])
 	{
 		System.out.println(Thread.currentThread());
@@ -216,7 +232,7 @@ public class Th4 extends Thread
 
 
 
-public class Th4_a extends Thread
+class Th4_a extends Thread
 {
 	public void run()
 	{
@@ -233,6 +249,10 @@ public class Th4_a extends Thread
 			}
 		}
 	}
+}
+
+class Test4_a
+{
 	public static void main(String args[])
 	{
 		Th4_a t1 = new Th4_a();
@@ -244,8 +264,28 @@ public class Th4_a extends Thread
 	}
 }
 
+Explanation:
+- Both threads (t1 and t2) will execute the run() method simultaneously.
+- Since the loop is "for(int i=0; i<5; i++)", each thread will execute the loop 5 times.
+- Total 10 lines will be printed (5 by 'first' and 5 by 'second').
+- Due to 'Thread.sleep(100)', the threads will yield control, allowing them to interleave (mix) in the output.
 
-public class Th5 implements Runnable
+Sample Output (Order may vary):
+Hello  first	0
+Hello  second	0
+Hello  first	1
+Hello  second	1
+Hello  first	2
+Hello  second	2
+Hello  first	3
+Hello  second	3
+Hello  first	4
+Hello  second	4
+
+
+Implements Runnable interface
+===============================
+class Th5 implements Runnable
 {
 	public void run()
 	{
@@ -254,6 +294,10 @@ public class Th5 implements Runnable
 			System.out.println("Hello" + i);
 		}
 	}
+}
+
+class Test5
+{
 	public static void main(String args[])
 	{
 		Th5 ob = new Th5();
@@ -263,6 +307,9 @@ public class Th5 implements Runnable
 		t2.start();
 	}
 }
+
+STEPS TO CREATE THREAD USING Runnable
+======================================
 
 a) Define a class which implements Runnable
 b) Define run()
@@ -277,12 +324,16 @@ How Thread class is related to Runnable interface?
 
 Ans- Thread class implements Runnable
 
+
 Difference between extends Thread and implements Runnable
+==========================================================
 
 What is the use of implements Runnable?
 	If your class is already extending some class, you can't say extends Thread, because multiple inheritance is not allowed in Java. In that case you have to go for implements Runnable.
 
 
+RACE CONDITION
+===============
 The above program also proves that threads can share the memory.
 
 When threads share the memory there is a risk of "race condition".
