@@ -490,19 +490,15 @@ synchronized keyword
 
 
 What exactly happens when we use synchronized keyword?
+=======================================================
 
-There is a concept of object lock.
-
-In Java every object has a lock. This lock can be accessed by only one thread at a time. The lock will be released as soon as the thread completes its job and thus another thread can acquire the lock.
-	This lock comes into picture only when object has got non-static synchronized method/s or block.
-Whichever thread executes the synchronized method first, it acquires the lock. Other thread/s have to be in "seeking lock state".
-
-Acquiring and Releasing lock happens automatically.
-
-
-Once a thread acquires a lock on an object, it can have control on all the non-static synchronized methods of that object.
-
-
+- There is a concept of object lock.
+- In Java every object has a lock. This lock can be accessed by only one thread at a time.
+- The lock will be released as soon as the thread completes its job and thus another thread can acquire the lock.
+- Acquiring and Releasing lock happens automatically.
+- This lock comes into picture only when object has got non-static synchronized method/s or block.
+- Whichever thread executes the synchronized method first, it acquires the lock. Other thread/s have to be in "seeking lock state".
+- Once a thread acquires a lock on an object, it can have control on all the non-static synchronized methods of that object.
 
 
 public class Th8 implements Runnable
@@ -529,6 +525,8 @@ public class Th8 implements Runnable
 }
 
 
+DeadLock
+=========
 Even though synchronized method or block is used to avoid "Race Condition", there can be danger of "DeadLock" inside it.
 e.g. if one thread is working inside synchronized block or method and if it gets stuck up! Imagine what will happen?
 Neither this thread can complete and release the lock, nor other thread can acquire the lock.
