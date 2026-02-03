@@ -576,14 +576,14 @@ Difference bet'n wait and sleep
 
 Thread-safety
 
-Thread-safe classes are those classes, which contain synchronized non-static methods.
+Thread-safe classes are those classes, which contain **synchronized non-static methods**.
 
 
 What is class lock?
 
-Every class has a lock. It is actually a lock on an instance of class Class. This is because, whenever any class is loaded in Java, it is represented by instance of class Class.
-The class lock comes into picture in case of synchronized static methods.
-Thread which gives a call to synchronized static method can acquire a class lock. Only after thread complete that static method, lock is released.
+- Every class has a lock. It is actually a lock on an instance of class Class. This is because, whenever any class is loaded in Java, it is represented by instance of class Class.
+- The class lock comes into picture in case of **synchronized static methods**.
+- Thread which gives a call to synchronized static method can acquire a class lock. Only after thread complete that static method, lock is released.
 
 
 public class Th9 implements Runnable
