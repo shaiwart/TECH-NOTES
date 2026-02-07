@@ -20,18 +20,20 @@ Whether process-based or thread-based, a CPU can handle only one task at a time,
 
 
 Process-based vs Thread-based
+=============================
 
-a) Threads can share the memory, processes can not.
-b) Context switching between threads is relatively cheaper as compared to that between processes.
-c) Cost of communication between threads is also low.
+a) Threads share memory; processes are isolated by default.
+b) Thread context switching is cheaper than process context switching.
+c) Communication between threads is faster because they share memory, though synchronization overhead exists.
 
 (Cheaper or low cost -> actually means less no. of system resources are used.)
 
-Java supports thread-based multitasking.
-
-Application of multi-threading in Java: due to multithreading feature, Java has become effective on server side. e.g. Servlet, JSP etc.
+Applications of Multi-threading
+===============================
+Java supports thread-based multitasking, which enables concurrent execution of tasks. This makes Java highly effective for server-side applications such as Servlets and JSP, where multiple client requests must be handled simultaneously. (Modern Java web servers (like Tomcat, Jetty, etc.) use a thread pool)
 
 Thread-Scheduler
+================
 a) Pre-emptive: Priority based. Higher priority thread gets chance first.
 b) Time-slice: Round-Robin. Fixed time is allocated to each thread for fairness.
 
@@ -41,7 +43,12 @@ It is because JVM is different for different platforms.
 Java has given certain mechanisms (functions) whereby you can make sure, your multi-threading application can run more or less same on any OS.
 
 
-Following are the imp. steps required for multithreading application.
+
+
+
+Following are the imp. steps required for multithreading application
+====================================================================
+
 1) Create thread/s
 2) Define thread execution body - task which is to be preformed by the thread. basically we are defining run()
 3) Register thread with the thread scheduler - done by programmer.
@@ -49,14 +56,17 @@ Following are the imp. steps required for multithreading application.
 
 
 Java's multi-threading support lies in
+======================================
 
 a) java.lang.Thread
 b) java.lang.Runnable (interface)
 c) java.lang.Object
 
 
-Thread class: this is the most imp. class required in order to create multi-threading application.
-Following are its methods.
+Thread class
+=============
+- This is the most imp. class required in order to create multi-threading application.
+- Following are its methods.
 
 a) start
 	is used to register thread with JVM scheduler
@@ -112,7 +122,8 @@ Runnable interface: interface which contains abstract method
  void run();
 
 
-✅ There are two ways to create multi-threading application.
+✅ There are two ways to create multi-threading application
+===========================================================
 
 1) extends Thread class
 2) implements Runnable interface
