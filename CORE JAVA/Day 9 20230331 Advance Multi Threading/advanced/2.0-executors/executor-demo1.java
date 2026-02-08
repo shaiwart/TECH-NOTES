@@ -1,3 +1,5 @@
+package package1;
+
 import java.util.concurrent.*;
 class myapp implements Runnable {
     public void run() {
@@ -5,9 +7,7 @@ class myapp implements Runnable {
     }
     void perform() {
         for (int i = 0; i < 5; i++) {
-            System.out.println("Hello\t" + i
-
-                + "\t" + Thread.currentThread());
+            System.out.println("Hello " + i + "-" + Thread.currentThread());
             try {
                 Thread.sleep(100);
             } catch (InterruptedException ie) {
@@ -18,9 +18,7 @@ class myapp implements Runnable {
 }
 public class ExecutorDemo1 {
     public static void main(String args[]) {
-        ExecutorService
-
-            exec = Executors.newCachedThreadPool();
+        ExecutorService exec = Executors.newCachedThreadPool();
 
         for (int i = 0; i < 3; i++) {
             exec.execute(new myapp());
@@ -31,7 +29,8 @@ public class ExecutorDemo1 {
         exec.execute(new myapp());
 
         /*
-        shutdown() prevents new tasks from being submitted to that Executor. The current thread ( e.g. main thread  ) will continue to run all tasks submitted before shutdown() was called.
+        shutdown() prevents new tasks from being submitted to that Executor. The current thread ( e.g. main thread  )
+        will continue to run all tasks submitted before shutdown() was called.
         */
         exec.shutdown(); // if u don't invoke, then jvm will not shutdown
         System.out.println("done");

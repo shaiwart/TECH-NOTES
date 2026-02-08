@@ -8,7 +8,7 @@ class myapp implements Runnable {
     }
     void perform() {
         for (int i = 0; i < 5; i++) {
-            System.out.println("Hello\t" + i + "\t" + Thread.currentThread());
+            System.out.println("Hello " + i + "-" + Thread.currentThread());
         }
     }
 }
