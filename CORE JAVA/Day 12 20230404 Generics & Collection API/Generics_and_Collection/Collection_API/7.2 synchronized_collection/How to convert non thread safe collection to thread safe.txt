@@ -3,7 +3,7 @@ HOW TO CONVERT NON-THREAD-SAFE COLLECTIONS TO THREAD-SAFE
 
 1. OVERVIEW
 --------------------------------------------------------------------------------
-The `Collections` utility class provides static methods to wrap standard 
+The `Collections` utility class provides static methods to wrap standard
 collections (like ArrayList, HashMap) into synchronized (thread-safe) versions.
 
 
@@ -37,12 +37,12 @@ Example:
 
 4. IMPORTANT NOTE ON ITERATION
 --------------------------------------------------------------------------------
-Even though the collection methods (add, get, etc.) are synchronized, 
-ITERATION is NOT synchronized by default. You must manually synchronize on 
+Even though the collection methods (add, get, etc.) are synchronized,
+ITERATION is NOT synchronized by default. You must manually synchronize on
 the collection object during traversal:
 
     synchronized(threadSafeList) {
-        Iterator<String> i = threadSafeList.iterator(); 
+        Iterator<String> i = threadSafeList.iterator();
         while (i.hasNext())
             System.out.println(i.next());
     }

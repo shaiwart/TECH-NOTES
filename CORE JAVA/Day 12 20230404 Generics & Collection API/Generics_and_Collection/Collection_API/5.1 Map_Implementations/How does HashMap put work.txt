@@ -5,6 +5,10 @@ HOW HASHMAP PUT() WORKS
 --------------------------------------------------------------------------------
 - The `hashCode()` method of the Key is invoked.
 - Based on the hash code, the specific bucket index is calculated.
+   hash = key.hashCode();
+   index = hash % number_of_buckets (simplified)
+      or
+      index = hash & (n-1)
 
 
 2. INSERTION SCENARIOS
