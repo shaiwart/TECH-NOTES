@@ -1,0 +1,7 @@
+In Spring Security, session management refers to how the framework handles a user’s HTTP session after authentication and during subsequent requests.
+Since most web applications use HTTP, which is stateless, Spring Security relies on sessions to remember that a user has already logged in.
+
+## Resources
+- https://www.geeksforgeeks.org/advance-java/spring-boot-session-management/
+- https://www.baeldung.com/spring-security-session
+- https://medium.com/@AlexanderObregon/the-mechanics-of-session-management-in-spring-boot-f7928e683867
